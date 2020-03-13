@@ -1,13 +1,13 @@
-FROM php:7.3-cli
+FROM php:7.4-cli
 
-ARG APCU_VERSION=5.1.11
+ARG APCU_VERSION=5.1.18
 ARG MEMCACHED_VERSION=3.1.3
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 RUN  set -xe \
     && apt-get update \
-    && apt-get install -y libmemcached-dev libzip-dev libicu-dev libgmp-dev git mariadb-client \
+    && apt-get install -y libmemcached-dev libzip-dev libicu-dev libgmp-dev libonig-dev git mariadb-client \
     && pecl install apcu-${APCU_VERSION} \
     && pecl install memcached-${MEMCACHED_VERSION} \
     && pecl install -o -f redis \
